@@ -2,12 +2,24 @@
 Mensch ärgere dich nicht
 Ersteller: Simsek Emre | Starcevic Luka | Turek Alexander
 """
-import tkinter as tk
+import customtkinter as ctk
+from PIL import Image
 import random
 
-Hintergrund = 
+app = ctk.CTk()
+app.title("Mensch ärgere dich nicht")
+app.after(0, lambda: app.state("zoomed"))
 
+label = ctk.CTkLabel(app, text="", font=("Arial", 20, "bold"))
+label.pack()
 
+label = ctk.CTkLabel(app, text="Mensch ärgere dich nicht", font=("Arial", 100, "bold"))
+label.pack()
+
+label = ctk.CTkLabel(app, text="", font=("Arial", 20, "bold"))
+label.pack()
+
+"""
 class Spielbrett:
     def __init__(self, canvas):
         self.canvas = canvas
@@ -18,7 +30,7 @@ class Spielbrett:
         "blau": [(100,0),(100,20),(120,0),(120,20)],   
         }
     
-    def Hintergrund(self):
+    def hintergrund(self):
 
 
 class Spieler:
@@ -27,3 +39,6 @@ class Figur:
 
 class Spiel:
 
+"""
+
+app.mainloop()
