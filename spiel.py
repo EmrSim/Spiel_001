@@ -52,4 +52,4 @@ class Spiel(ctk.CTk):
         self.spieler_frame = ctk.CTkFrame(self, fg_color = hintergrund)
         self.spieler_frame.grid(row = 0, column = 0, sticky = "nesw")
 
-        
+        #test  
