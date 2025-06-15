@@ -6,7 +6,7 @@ Ersteller: Simsek Emre | Starcevic Luka | Turek Alexander
 import customtkinter as ctk
 import random
 
-ctk.set_apperance_mode("light")
+ctk.set_appearance_mode("light")
 
 #Variablen
 max_spieler = 4
@@ -31,7 +31,7 @@ class Spieler:
 class Spiel(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.titel("Würfelspiel")
+        self.title("Würfelspiel")
         self.after(0, lambda: self.state("zoomed"))
 
         self.grid_columnconfigure(0, weight = 1000)
@@ -61,9 +61,9 @@ class Spiel(ctk.CTk):
         button_frame.grid_rowconfigure(2, weight = 0)
         button_frame.grid_rowconfigure(3, weight = 1)
 
-        ctk.CtkButton(button_frame, text = "Spieler hinzufügen", command = self.add_spieler, corner_radius = 12,
+        ctk.CTkButton(button_frame, text = "Spieler hinzufügen", command = self.add_spieler, corner_radius = 12,
                       font = ("Arial", 20), width = 180, height = 50).grid(row = 1, column = 1, pady = 10, sticky = "ew")
-        ctk.CtkButton(button_frame, text = "Spieler entfernen", command = self.remove_spieler, corner_radius = 12,
+        ctk.CTkButton(button_frame, text = "Spieler entfernen", command = self.remove_spieler, corner_radius = 12,
                       font = ("Arial", 20), width = 180, height = 50).grid(row = 2, column = 1, pady = 10, sticky = "ew")
         
         self.aktueller_spieler = 0
@@ -111,4 +111,12 @@ class Spiel(ctk.CTk):
             self.after(gewinner_anzeige, self.reset)
     
     def reset(self):
-        
+        for spieler in self.spieler_liste:
+            spieler.tipp = None
+            spieler.tipp_label.configure(text = "")
+        self.aktueller_spieler = 0
+        self.wuerfel_label.configure(text = "\n\n\n")
+        self.animation = False
+        self.spieler_bearbeitung = True
+
+Spiel().mainloop()
