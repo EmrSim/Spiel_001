@@ -6,8 +6,6 @@ Ersteller: Simsek Emre | Starcevic Luka | Turek Alexander
 import customtkinter as ctk
 import random
 
-ctk.set_appearance_mode("light")
-
 #Variablen
 max_spieler = 4
 animation_länge = 25
@@ -20,7 +18,7 @@ textfarbe = "black"
 class Spieler:
     def __init__(self, f, name):
         self.name = name
-        self.frame = ctk.CTkFrame(f, fg_color = hintergrund, corner_radius = 10, border_width = 2)
+        self.frame = ctk.CTkFrame(f, fg_color = hintergrund, corner_radius = 10, border_width = 3)
         self.frame.pack(expand = True, side = "left")
         self.tipp_label = ctk.CTkLabel(self.frame, text = "", font = ("Arial", 24), text_color = textfarbe)
         self.tipp_label.pack(pady = 5)
@@ -33,13 +31,14 @@ class Spiel(ctk.CTk):
         super().__init__()
         self.title("Würfelspiel")
         self.after(0, lambda: self.state("zoomed"))
+        self.configure(fg_color = hintergrund)
 
         self.grid_columnconfigure(0, weight = 1000)
         self.grid_columnconfigure(1, weight = 1)
         self.grid_rowconfigure(0, weight = 1)
         self.grid_rowconfigure(1, weight = 1)
 
-        self.wuerfel_label = ctk.CTkLabel(self, text = "Geben sie ihren Tipp ab!\n\n", font = ("Arial", 50), text_color = textfarbe)
+        self.wuerfel_label = ctk.CTkLabel(self, text = "Geben sie ihren Tipp ab!\n\n\n", font = ("Arial", 50), text_color = textfarbe)
         self.wuerfel_label.grid(row = 0, column = 0, pady = 50)
 
         ziffer_frame = ctk.CTkFrame(self, fg_color = hintergrund, corner_radius = 15, border_width = 3)
@@ -48,9 +47,9 @@ class Spiel(ctk.CTk):
             ziffer = ctk.CTkButton(ziffer_frame, text = str(i), command = lambda i = i: self.click(i), width = 110, height = 60,
                                    corner_radius = 15, font = ("Arial", 24), text_color = textfarbe)
             ziffer.grid(row = (i - 1) // 3, column = (i - 1) % 3, padx = 10, pady = 10)
-        
+
         self.spieler_frame = ctk.CTkFrame(self, fg_color = hintergrund)
-        self.spieler_frame.grid(row = 0, column = 0, sticky = "nesw")
+        self.spieler_frame.grid(row = 1, column = 0, sticky = "nesw")
         self.spieler_liste = []
 
         button_frame = ctk.CTkFrame(self, fg_color = hintergrund)
@@ -65,7 +64,7 @@ class Spiel(ctk.CTk):
                       font = ("Arial", 20), width = 180, height = 50).grid(row = 1, column = 1, pady = 10, sticky = "ew")
         ctk.CTkButton(button_frame, text = "Spieler entfernen", command = self.remove_spieler, corner_radius = 12,
                       font = ("Arial", 20), width = 180, height = 50).grid(row = 2, column = 1, pady = 10, sticky = "ew")
-        
+
         self.aktueller_spieler = 0
         self.animation = False 
         self.spieler_bearbeitung = True
@@ -94,7 +93,7 @@ class Spiel(ctk.CTk):
         if (self.aktueller_spieler == len(self.spieler_liste)):
             self.nummer = random.randint(1, 6)
             self.wuerfel_label.configure(text = str(self.nummer) + "\n\n\n")
-            self.after(500, self.gewinner)
+            self.after(1500, self.gewinner)
 
     def gewinner(self):
         gewinner = []
@@ -109,13 +108,13 @@ class Spiel(ctk.CTk):
                 text = "Kein Gewinner!\n"
             self.wuerfel_label.configure(text = text + "\n\n")
             self.after(gewinner_anzeige, self.reset)
-    
+
     def reset(self):
         for spieler in self.spieler_liste:
             spieler.tipp = None
             spieler.tipp_label.configure(text = "")
         self.aktueller_spieler = 0
-        self.wuerfel_label.configure(text = "\n\n\n")
+        self.wuerfel_label.configure(text = "Geben sie ihren Tipp ab!\n\n\n")
         self.animation = False
         self.spieler_bearbeitung = True
 
