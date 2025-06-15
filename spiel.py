@@ -111,5 +111,4 @@ class Spiel(ctk.CTk):
             self.after(gewinner_anzeige, self.reset)
     
     def reset(self):
-
-
+        
